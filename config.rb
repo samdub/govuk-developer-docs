@@ -33,12 +33,11 @@ helpers do
   end
 end
 
-ignore 'publishing_api_template.html.md.erb'
-ignore 'schema_template.html.md.erb'
-ignore 'application_template.html.md.erb'
+ignore 'templates/*'
+ignore '.DS_Store'
 
 PublishingApiDocs.pages.each do |page|
-  proxy "/apis/publishing-api/#{page.filename}.html", "publishing_api_template.html", locals: {
+  proxy "/apis/publishing-api/#{page.filename}.html", "templates/publishing_api_template.html", locals: {
     page_title: page.title,
     page: page,
   }
@@ -47,14 +46,14 @@ end
 GovukSchemas::Schema.schema_names.each do |schema_name|
   schema = ContentSchema.new(schema_name)
 
-  proxy "/content-schemas/#{schema_name}.html", "schema_template.html", locals: {
+  proxy "/content-schemas/#{schema_name}.html", "templates/schema_template.html", locals: {
     schema: schema,
     page_title: "Schema: #{schema.schema_name}",
   }
 end
 
 AppDocs.pages.each do |application|
-  proxy "/apps/#{application.app_name}.html", "application_template.html", locals: {
+  proxy "/apps/#{application.app_name}.html", "templates/application_template.html", locals: {
     page_title: application.title,
     application: application,
   }
