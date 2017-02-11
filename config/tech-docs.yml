@@ -1,8 +1,10 @@
-host: https://docs.publishing.service.gov.uk
+host: https://1cdc8def.ngrok.io
 service_link: /
 
 show_govuk_logo: true
 service_name: Developer docs
+full_service_name: GOV.UK Developer Documentation
+description: Documentation for developers working on GOV.UK
 
 header_links:
   Dashboard: /
