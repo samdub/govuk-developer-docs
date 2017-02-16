@@ -1,0 +1,26 @@
+<% content_for :sidebar do %>
+  <ul>
+    <li>
+      <%= link_to 'Style guides', '/styleguides.html' %>
+      <ul>
+        <% style_guide_pages.each do |page| %>
+          <li><%= link_to page.title, "/styleguides/#{page.filename}.html" %></li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+<% end %>
+
+<% wrap_layout :layout_with_sidebar do %>
+  <%= partial 'partials/header' %>
+
+  <% if locals.key?(:page) %>
+    <%= partial 'partials/source', page: page %>
+  <% end %>
+
+  <%= yield %>
+
+  <% if locals.key?(:page) %>
+    <%= partial 'partials/source', page: page %>
+  <% end %>
+<% end %>

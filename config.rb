@@ -38,6 +38,10 @@ helpers do
     AppDocs.pages.reject(&:retired?).sort_by(&:app_name)
   end
 
+  def style_guide_pages
+    StyleGuideDocs.pages
+  end
+
   require 'table_of_contents/helpers'
   include TableOfContents::Helpers
 end
@@ -72,4 +76,11 @@ DocumentTypes.pages.each do |page|
     page_title: "Document type: #{page.name}",
     page: page,
   }
+end
+
+StyleGuideDocs.pages.each do |guide|
+  proxy "/styleguides/#{guide.filename}.html", "templates/styleguide_template.html", locals: {
+    page_title: "Style guide: #{guide.title}",
+    page: guide,
+    }
 end
