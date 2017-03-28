@@ -32,6 +32,20 @@ Owned by team **<%= application.team %>**.
 - <%= link_to application.production_url.gsub('https://', ''), application.production_url %>
 <% end %>
 
+<% if application.machine_classes.any? %>
+### SSH
+<% end %>
+
+SSH into these machines like this:
+
+<% application.machine_classes.each do |machine_class| %>
+```sh
+$ ssh <%= machine_class %>-1.integration
+$ ssh <%= machine_class %>-1.staging
+$ ssh <%= machine_class %>-1.production
+```
+<% end %>
+
 <% if application.example_published_pages %>
 ### Example pages published by <%= application.app_name %>
 

@@ -72,6 +72,10 @@ class AppDocs
       app_data["production_url"] || (type.in?(["Publishing app", "Admin app"]) ? "https://#{app_name}.publishing.service.gov.uk" : nil)
     end
 
+    def machine_classes
+      all_apps_and_machines[puppet_name].to_a
+    end
+
   private
 
     def puppet_name
@@ -81,6 +85,39 @@ class AppDocs
     def description_from_github
       repo = GitHub.client.repo(github_repo_name)
       repo["description"]
+    end
+
+    # Look into the YAML configs in puppet for all the classes where our
+    # applications live (this excludes machines that do databases only, like
+    # redis or mysql).
+    def all_apps_and_machines
+      @@all_apps_and_machines ||= begin
+        apps = {}
+        %w[
+          api
+          backend
+          cache
+          calculators_frontend
+          content_store
+          draft_cache
+          draft_content_store
+          draft_frontend
+          frontend
+          mapit
+          router_backend
+          search
+          whitehall_backend
+          whitehall_frontend
+        ].map do |klass|
+          data = HTTP.get_yaml("https://raw.githubusercontent.com/alphagov/govuk-puppet/master/hieradata/class/#{klass}.yaml")
+
+          data["govuk::node::s_base::apps"].each do |app|
+            apps[app] ||= []
+            apps[app] << klass.gsub("_", "-")
+          end
+        end
+        apps
+      end
     end
   end
 end
