@@ -1,0 +1,26 @@
+@import "govuk_frontend_toolkit/design-patterns/buttons";
+
+.api-preview {
+  width: 100%;
+
+  .url-input {
+    font-size: 15px;
+    font-family: monaco, Consolas, "Lucida Console", monospace;
+    padding: 8px;
+    min-width: 500px;
+    vertical-align: top;
+  }
+
+  .preview-button {
+    @include button;
+  }
+
+  .api-output {
+    max-height: 300px;
+    font-size: 15px;
+
+    &:empty {
+      display: none;
+    }
+  }
+}

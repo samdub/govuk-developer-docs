@@ -31,7 +31,7 @@ The relationship between a page and a taxon is persisted in the publishing-api "
 
 This is the content item for the top-level "Education" taxon:
 
-[https://www.gov.uk/api/content/education][education-taxon]
+<%= api_preview 'https://www.gov.uk/api/content/education' %>
 
 You can use this to find the structure of the taxonomy by following the `child_taxons` links.
 
@@ -43,18 +43,18 @@ All content tagged to a particular taxon you fetch from the search API ([rummage
 
 This works with a `content_id` rather than URL. To find all content tagged to the above mentioned ["Education taxon"][education-taxon]:
 
-[https://www.gov.uk/api/search.json?filter_taxons[]=c58fdadd-7743-46d6-9629-90bb3ccc4ef0](https://www.gov.uk/api/search.json?filter_taxons[]=c58fdadd-7743-46d6-9629-90bb3ccc4ef0)
+<%= api_preview 'https://www.gov.uk/api/search.json?filter_taxons[]=c58fdadd-7743-46d6-9629-90bb3ccc4ef0' %>
 
 You can also access all content tagged to a taxon and the part of the taxonomy below it. The following will give you everything tagged to topics in the "Education" taxonomy:
 
-[https://www.gov.uk/api/search.json?filter_part_of_taxonomy_tree[]=c58fdadd-7743-46d6-9629-90bb3ccc4ef0&fields=title,taxons,part_of_taxonomy_tree](https://www.gov.uk/api/search.json?filter_part_of_taxonomy_tree[]=c58fdadd-7743-46d6-9629-90bb3ccc4ef0&fields=title,taxons,part_of_taxonomy_tree)
+<%= api_preview 'https://www.gov.uk/api/search.json?filter_part_of_taxonomy_tree[]=c58fdadd-7743-46d6-9629-90bb3ccc4ef0&fields=title,taxons,part_of_taxonomy_tree' %>
 
 You can see the number of documents in each topic by using `taxons` as a facet:
 
-[https://www.gov.uk/api/search.json?filter_part_of_taxonomy_tree=c58fdadd-7743-46d6-9629-90bb3ccc4ef0&facet_taxons=1000&count=0](https://www.gov.uk/api/search.json?filter_part_of_taxonomy_tree=c58fdadd-7743-46d6-9629-90bb3ccc4ef0&facet_taxons=1000&count=0)
+<%= api_preview 'https://www.gov.uk/api/search.json?filter_part_of_taxonomy_tree=c58fdadd-7743-46d6-9629-90bb3ccc4ef0&facet_taxons=1000&count=0' %>
 
 [education-taxon]: https://www.gov.uk/api/content/education
-[example-guidance]: https://www-origin.integration.publishing.service.gov.uk/api/content/government/publications/managing-staff-employment-in-schools
+[example-guidance]: https://www.gov.uk/api/content/government/publications/managing-staff-employment-in-schools
 [edit-taxonomy]: https://content-tagger.publishing.service.gov.uk/taxon
 [content-tagger]: https://content-tagger.publishing.service.gov.uk/
 [whitehall]: /apps/whitehall.html
