@@ -199,3 +199,43 @@ Sum series data together, can be used by itself to return a single stream of dat
 Deploy puppet and then either wait for convergence or use fabric to force a puppet run on the graphite box. Currently you will need to restart the Grafana service after deploying new dashboards.
 
 `sudo service grafana-server restart` if you’re on the `graphite-1.management` machine. Otherwise use the fabric scripts.
+
+## New features and improvements
+
+These are features that we didn't have time to add in the two-week blitz.
+
+### Add and improve links to dashboards
+
+- Only link from the release app to an application's dashboard if the dashboard
+  exists
+  - This involves reverting [alphagov/release#131](https://github.com/alphagov/release/pull/131)
+    and changing the Grafana API call so that it only makes one
+    environment-specific call to Grafana, because cross-environment calls are
+    not possible.
+- Only link from the developer docs to an application's dashboard if the
+  dashboard exists.
+  - For example, the [govuk_content_api page](https://docs.publishing.service.gov.uk/apps/govuk_content_api.html)
+    should not link to a dashboard because the app does not have one.
+- Add a link from the badger (a Capistrano task in govuk-app-deployment) when
+  the badger announces a deployment
+  - This involves reopening [alphagov/govuk-app-deployment#122](alphagov/govuk-app-deployment/pull/122)
+    and making the API call environment-specific, as for the release app.
+
+These changes require the applications to be able to access the Grafana API, for
+example, https://grafana.publishing.service.gov.uk/api/dashboards/file/deployment_whitehall.json.
+The Grafana hostname was originally not accessible from the app servers, but it
+now been configured so these updates can now be made.
+
+### Errbit links
+
+A dashboard's Errbit link currently goes to the main Errbit page for that
+environment. It would be better to link to an application's own Errbit page, but
+we would need to configure each link individually or work out how to generate
+or look up an app-specific link.
+
+### Hide empty controller-specific graphs
+
+The two graphs which are powered by ElasticSearch (5xx responses by controller
+action, and slow responses by controller) do not have data on every dashboard.
+It would be better to hide these graphs if there is no data, in the same way
+that the worker failures and successes are hidden if an app has no workers.
