@@ -38,6 +38,10 @@ node {
       govuk.rubyLinter("lib helpers spec bin")
     }
 
+    stage("Lint component sass") {
+      govuk.sassLinter("source/stylesheets")
+    }
+
     stage("Tests") {
       govuk.runTests()
     }
