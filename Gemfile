@@ -21,8 +21,10 @@ gem 'middleman-search_engine_sitemap', '~> 1.4'
 
 gem 'table_of_contents', git: 'https://github.com/alphagov/table_of_contents.git', ref: 'f6d37fe1e837cebf7354abafd891f755148e7efa'
 
-gem 'github-markdown'
-gem 'html-pipeline'
+gem 'commonmarker', '~> 0.14'
+# Using this branch until https://github.com/jch/html-pipeline/pull/274 is
+# merged in
+gem 'html-pipeline', git: 'https://github.com/kivikakk/html-pipeline', branch: 'commonmark'
 gem 'redcarpet', '~> 3.3.2'
 
 gem 'govuk_schemas', '~> 2.1.1'
